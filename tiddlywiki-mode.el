@@ -95,7 +95,7 @@ type: %s"
               ((string= ftype "text/vnd.tiddlywiki")
                (message "tiddlywiki WikiText")
                ;; FIXME fixme1
-               (markdown-mode))
+               (tiddlywiki-mode))
               (t
                (message (concat "unhandled mode: " type))))))))
 
@@ -110,7 +110,7 @@ type: %s"
   (let ((info (tiddlywiki-parse-tid-file))
         (modified (buffer-modified-p)))
     (let ((ov (make-overlay (point-min) (plist-get info :header-end-point))))
-      (overlay-put ov 'face '(:background "orange4")))
+      (overlay-put ov 'face 'match))
     ;; prevent front of first header char still being editable
     (put-text-property 1 2 'front-sticky t)
     (put-text-property 1 2 'rear-nonsticky nil)
@@ -175,7 +175,7 @@ type: %s"
   "TiddlyWiki interaction mode"
   (progn
     (tiddlywiki-set-header-read-only)
-    (tiddlywiki-narrow-file)
+    ;(tiddlywiki-narrow-file)
     ;; TODO: look into reapplying narrow file after auto revert
     ;; ref http://www.gnu.org/software/emacs/manual/html_node/elisp/Reverting.html
     (auto-revert-mode)))
